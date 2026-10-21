@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Маникюрный салон «НАЗВАНИЕ» в ГОРОДЕ — запись онлайн</title>
+  <meta name="description" content="Маникюр, педикюр, гель-лак, наращивание в ГОРОДЕ. Стерильные инструменты, опытные мастера. Запишитесь онлайн за минуту.">
+  <!-- <link rel="icon" href="favicon.png"> -->
+
+  <style>
+    /* ===== Палитра и базовые настройки: меняйте цвета здесь ===== */
+    :root {
+      --bg: #fffaf7;
+      --bg-alt: #f6ebe6;
+      --text: #2d2523;
+      --muted: #7a6c67;
+      --accent: #c9788a;
+      --accent-dark: #a95c6e;
+      --white: #ffffff;
+      --radius: 16px;
+      --shadow: 0 8px 24px rgba(80, 40, 40, .08);
+      --font-head: Georgia, "Times New Roman", serif;
+      --font-body: -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 70px; }
+    body { font-family: var(--font-body); color: var(--text); background: var(--bg); line-height: 1.6; }
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    .container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+    section { padding: 56px 0; }
+    section.alt { background: var(--bg-alt); }
+    h1, h2, h3 { font-family: var(--font-head); line-height: 1.2; }
+    h2 { font-size: 28px; text-align: center; margin-bottom: 12px; }
+    .section-sub { text-align: center; color: var(--muted); margin-bottom: 36px; }
+
+    .btn {
+      display: inline-block; padding: 14px 28px; border: 0; border-radius: 999px;
+      background: var(--accent); color: var(--white); font-size: 16px; font-weight: 600;
+      cursor: pointer; transition: background .2s;
+    }
+    .btn:hover { background: var(--accent-dark); }
+    .btn-outline { background: transparent; color: var(--accent); border: 2px solid var(--accent); }
+    .btn-outline:hover { background: var(--accent); color: var(--white); }
+
+    /* Заглушки под фото: замените на <img src="..."> */
+    .ph { background: linear-gradient(135deg, #ecd5d0, #f6e4de); border-radius: var(--radius);
+          display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 14px; text-align: center; }
+
+    /* ===== Шапка ===== */
+    header { position: sticky; top: 0; z-index: 50; background: rgba(255,250,247,.96); backdrop-filter: blur(6px); border-bottom: 1px solid #efe2dc; }
+    .header-inner { display: flex; align-items: center; justify-content: space-between; height: 62px; }
+    .logo { font-family: var(--font-head); font-size: 22px; font-weight: bold; color: var(--accent-dark); }
+    nav ul { display: none; gap: 22px; }
+    nav a:hover { color: var(--accent); }
+    .header-right { display: flex; align-items: center; gap: 14px; }
+    .header-phone { display: none; font-weight: 600; }
+    .burger { background: none; border: 0; font-size: 28px; cursor: pointer; color: var(--text); }
+    nav.open ul { display: flex; flex-direction: column; position: absolute; top: 62px; left: 0; right: 0;
+                  background: var(--bg); padding: 16px; gap: 14px; border-bottom: 1px solid #efe2dc; }
+
+    /* ===== Первый экран ===== */
+    .hero { padding: 48px 0; }
+    .hero-inner { display: grid; gap: 28px; align-items: center; }
+    .hero h1 { font-size: 34px; margin-bottom: 14px; }
+    .hero p { color: var(--muted); margin-bottom: 24px; font-size: 18px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .hero .ph { height: 320px; }
+
+    /* ===== Услуги и цены ===== */
+    .cards { display: grid; gap: 16px; }
+    .card { background: var(--white); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); }
+    .card h3 { font-size: 20px; margin-bottom: 12px; }
+    .price-row { display: flex; justify-content: space-between; gap: 10px; padding: 8px 0; border-bottom: 1px dashed #e8d8d2; }
+    .price-row:last-child { border-bottom: 0; }
+    .price-row span:last-child { font-weight: 600; white-space: nowrap; }
+    .note { text-align: center; color: var(--muted); font-size: 14px; margin-top: 20px; }
+
+    /* ===== Портфолио ===== */
+    .gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .gallery .ph { aspect-ratio: 1 / 1; }
+
+    /* ===== Преимущества ===== */
+    .features { display: grid; gap: 16px; }
+    .feature { text-align: center; padding: 8px; }
+    .feature .icon { font-size: 36px; margin-bottom: 8px; }
+    .feature h3 { font-size: 18px; margin-bottom: 6px; }
+    .feature p { color: var(--muted); font-size: 15px; }
+
+    /* ===== Мастера ===== */
+    .masters { display: grid; gap: 18px; }
+    .master { text-align: center; }
+    .master .ph { height: 260px; margin-bottom: 12px; }
+    .master h3 { font-size: 20px; }
+    .master p { color: var(--muted); }
+
+    /* ===== Отзывы ===== */
+    .review p { font-style: italic; margin-bottom: 12px; }
+    .review strong { color: var(--accent-dark); }
+
+    /* ===== Акция ===== */
+    .promo { background: var(--accent); color: var(--white); text-align: center; border-radius: var(--radius); padding: 36px 20px; }
+    .promo h2 { margin-bottom: 10px; }
+    .promo .btn { background: var(--white); color: var(--accent-dark); margin-top: 18px; }
+
+    /* ===== Форма записи ===== */
+    form { max-width: 520px; margin: 0 auto; display: grid; gap: 14px; }
+    label { font-size: 14px; color: var(--muted); display: block; margin-bottom: 4px; }
+    input[type=text], input[type=tel], select, textarea {
+      width: 100%; padding: 13px 14px; border: 1px solid #e3d2cc; border-radius: 12px;
+      font: inherit; background: var(--white); color: var(--text);
+    }
+    input:focus, select:focus, textarea:focus { outline: 2px solid var(--accent); border-color: transparent; }
+    .consent { display: flex; gap: 8px; align-items: flex-start; font-size: 13px; color: var(--muted); }
+    .consent input { margin-top: 4px; }
+    .consent a { text-decoration: underline; }
+    .form-msg { text-align: center; font-weight: 600; min-height: 1.4em; }
+
+    /* ===== Контакты ===== */
+    .contacts { display: grid; gap: 24px; }
+    .contacts li { margin-bottom: 10px; }
+    .contacts strong { display: block; }
+    .map { height: 300px; }
+    .socials { display: flex; gap: 14px; margin-top: 8px; }
+    .socials a { color: var(--accent-dark); text-decoration: underline; }
+
+    /* ===== Подвал ===== */
+    footer { background: var(--text); color: #d9ccc7; padding: 28px 0; font-size: 14px; text-align: center; }
+    footer a { text-decoration: underline; }
+
+    /* Плавающая кнопка звонка на мобильных */
+    .call-fab { position: fixed; right: 16px; bottom: 16px; z-index: 60; background: var(--accent); color: var(--white);
+                width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+                font-size: 24px; box-shadow: var(--shadow); }
+
+    /* ===== Планшет и десктоп ===== */
+    @media (min-width: 768px) {
+      h2 { font-size: 34px; }
+      section { padding: 72px 0; }
+      .burger { display: none; }
+      nav ul { display: flex; }
+      .header-phone { display: block; }
+      .hero-inner { grid-template-columns: 1fr 1fr; }
+      .hero h1 { font-size: 44px; }
+      .hero .ph { height: 420px; }
+      .cards { grid-template-columns: repeat(3, 1fr); }
+      .gallery { grid-template-columns: repeat(4, 1fr); }
+      .features { grid-template-columns: repeat(4, 1fr); }
+      .masters { grid-template-columns: repeat(3, 1fr); }
+      .contacts { grid-template-columns: 1fr 1fr; }
+      .call-fab { display: none; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ===== 1. ШАПКА ===== -->
+  <header>
+    <div class="container header-inner">
+      <a href="#top" class="logo">НАЗВАНИЕ</a>
+      <nav id="nav">
+        <ul>
+          <li><a href="#services">Услуги</a></li>
+          <li><a href="#portfolio">Работы</a></li>
+          <li><a href="#masters">Мастера</a></li>
+          <li><a href="#reviews">Отзывы</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+        </ul>
+      </nav>
+      <div class="header-right">
+        <a class="header-phone" href="tel:+70000000000">+7 (000) 000-00-00</a>
+        <a class="btn" href="#booking" style="padding:10px 18px;font-size:14px;">Записаться</a>
+        <button class="burger" id="burger" aria-label="Меню">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- ===== 2. ПЕРВЫЙ ЭКРАН ===== -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <div>
+          <h1>Маникюр, который держится 3 недели</h1>
+          <p>Стерильные инструменты, качественные материалы и мастера с опытом от 5 лет. Уютная студия рядом с метро/центром.</p>
+          <div class="hero-actions">
+            <a href="#booking" class="btn">Записаться онлайн</a>
+            <a href="#services" class="btn btn-outline">Цены</a>
+          </div>
+        </div>
+        <div class="ph">Фото салона или работы</div>
+      </div>
+    </section>
+
+    <!-- ===== 3. УСЛУГИ И ЦЕНЫ ===== -->
+    <section class="alt" id="services">
+      <div class="container">
+        <h2>Услуги и цены</h2>
+        <p class="section-sub">Подберём то, что подойдёт именно вам</p>
+        <div class="cards">
+          <div class="card">
+            <h3>Маникюр</h3>
+            <div class="price-row"><span>Классический</span><span>000 ₽</span></div>
+            <div class="price-row"><span>Аппаратный</span><span>000 ₽</span></div>
+            <div class="price-row"><span>Маникюр + гель-лак</span><span>000 ₽</span></div>
+          </div>
+          <div class="card">
+            <h3>Педикюр</h3>
+            <div class="price-row"><span>Классический</span><span>000 ₽</span></div>
+            <div class="price-row"><span>Аппаратный</span><span>000 ₽</span></div>
+            <div class="price-row"><span>Педикюр + гель-лак</span><span>000 ₽</span></div>
+          </div>
+          <div class="card">
+            <h3>Наращивание и дизайн</h3>
+            <div class="price-row"><span>Наращивание</span><span>000 ₽</span></div>
+            <div class="price-row"><span>Дизайн (1 ноготь)</span><span>от 00 ₽</span></div>
+            <div class="price-row"><span>Снятие покрытия</span><span>000 ₽</span></div>
+          </div>
+        </div>
+        <p class="note">Точная стоимость зависит от длины и сложности работы. Мастер назовёт цену до начала.</p>
+      </div>
+    </section>
+
+    <!-- ===== 4. ПОРТФОЛИО ===== -->
+    <section id="portfolio">
+      <div class="container">
+        <h2>Наши работы</h2>
+        <p class="section-sub">Реальные фото клиентов салона</p>
+        <div class="gallery">
+          <!-- Замените .ph на <img src="img/work1.webp" alt="Маникюр гель-лак" loading="lazy"> -->
+          <div class="ph">Работа 1</div><div class="ph">Работа 2</div>
+          <div class="ph">Работа 3</div><div class="ph">Работа 4</div>
+          <div class="ph">Работа 5</div><div class="ph">Работа 6</div>
+          <div class="ph">Работа 7</div><div class="ph">Работа 8</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 5. ПРЕИМУЩЕСТВА ===== -->
+    <section class="alt">
+      <div class="container">
+        <h2>Почему выбирают нас</h2>
+        <p class="section-sub">Мы заботимся о здоровье ногтей и вашем комфорте</p>
+        <div class="features">
+          <div class="feature"><div class="icon">🧼</div><h3>Стерильность</h3><p>Инструменты проходят обработку и упаковываются в крафт-пакеты.</p></div>
+          <div class="feature"><div class="icon">💅</div><h3>Качественные материалы</h3><p>Профессиональные бренды без резкого запаха.</p></div>
+          <div class="feature"><div class="icon">⭐</div><h3>Опытные мастера</h3><p>Регулярно повышаем квалификацию.</p></div>
+          <div class="feature"><div class="icon">🕒</div><h3>Удобная запись</h3><p>Работаем без очередей и подберём время под вас.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 6. МАСТЕРА ===== -->
+    <section id="masters">
+      <div class="container">
+        <h2>Наши мастера</h2>
+        <p class="section-sub">Познакомьтесь с командой</p>
+        <div class="masters">
+          <div class="master"><div class="ph">Фото</div><h3>Имя</h3><p>Маникюр, гель-лак, дизайн</p></div>
+          <div class="master"><div class="ph">Фото</div><h3>Имя</h3><p>Педикюр</p></div>
+          <div class="master"><div class="ph">Фото</div><h3>Имя</h3><p>Наращивание</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 7. ОТЗЫВЫ ===== -->
+    <section class="alt" id="reviews">
+      <div class="container">
+        <h2>Отзывы клиентов</h2>
+        <p class="section-sub">Вставьте реальные отзывы (лучше со ссылкой на Яндекс.Карты или 2ГИС)</p>
+        <div class="cards">
+          <div class="card review"><p>«Текст отзыва клиента.»</p><strong>Имя</strong></div>
+          <div class="card review"><p>«Текст отзыва клиента.»</p><strong>Имя</strong></div>
+          <div class="card review"><p>«Текст отзыва клиента.»</p><strong>Имя</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 8. АКЦИЯ ===== -->
+    <section>
+      <div class="container">
+        <div class="promo">
+          <h2>Скидка 00% на первое посещение</h2>
+          <p>Условия акции: кратко и понятно. Срок действия.</p>
+          <a href="#booking" class="btn">Получить скидку</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 9. ФОРМА ЗАПИСИ ===== -->
+    <section class="alt" id="booking">
+      <div class="container">
+        <h2>Запись на приём</h2>
+        <p class="section-sub">Оставьте заявку, и мы перезвоним в течение 15 минут</p>
+
+        <!--
+          Куда уходят заявки: подключите сервис приёма форм (например, Formspree) и вставьте его адрес в action,
+          либо свой серверный скрипт. НЕ вставляйте токены Telegram-бота и другие ключи прямо в код страницы:
+          они будут видны всем.
+        -->
+        <form id="booking-form" action="https://formspree.io/f/ВАШ_ID" method="POST">
+          <div>
+            <label for="name">Имя</label>
+            <input type="text" id="name" name="name" required autocomplete="name">
+          </div>
+          <div>
+            <label for="phone">Телефон</label>
+            <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required autocomplete="tel">
+          </div>
+          <div>
+            <label for="service">Услуга</label>
+            <select id="service" name="service">
+              <option>Маникюр</option>
+              <option>Маникюр + гель-лак</option>
+              <option>Педикюр</option>
+              <option>Наращивание</option>
+              <option>Другое / не знаю</option>
+            </select>
+          </div>
+          <div>
+            <label for="comment">Желаемая дата и время (необязательно)</label>
+            <textarea id="comment" name="comment" rows="3"></textarea>
+          </div>
+          <label class="consent">
+            <input type="checkbox" name="consent" required>
+            <span>Согласен(на) на обработку персональных данных и с <a href="#privacy">политикой конфиденциальности</a></span>
+          </label>
+          <button type="submit" class="btn">Записаться</button>
+          <p class="form-msg" id="form-msg"></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ===== 10. КОНТАКТЫ ===== -->
+    <section id="contacts">
+      <div class="container">
+        <h2>Контакты</h2>
+        <p class="section-sub">Ждём вас в гости</p>
+        <div class="contacts">
+          <ul>
+            <li><strong>Адрес</strong>Город, улица, дом, этаж</li>
+            <li><strong>Телефон</strong><a href="tel:+70000000000">+7 (000) 000-00-00</a></li>
+            <li><strong>Часы работы</strong>Ежедневно, 10:00-21:00</li>
+            <li>
+              <strong>Мы в соцсетях</strong>
+              <div class="socials">
+                <a href="#">Telegram</a>
+                <a href="#">WhatsApp</a>
+                <a href="#">ВКонтакте</a>
+              </div>
+            </li>
+          </ul>
+          <!-- Вместо заглушки вставьте код карты из конструктора Яндекс.Карт (<iframe> или скрипт) -->
+          <div class="ph map">Здесь будет карта Яндекс.Карт</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== 11. ПОДВАЛ ===== -->
+  <footer>
+    <div class="container">
+      <p>© 2026 «НАЗВАНИЕ». ИП Фамилия И. О., ИНН 000000000000, ОГРНИП 000000000000000</p>
+      <p><a href="#privacy" id="privacy">Политика конфиденциальности</a></p>
+    </div>
+  </footer>
+
+  <a href="tel:+70000000000" class="call-fab" aria-label="Позвонить">📞</a>
+
+  <script>
+    // Мобильное меню
+    const nav = document.getElementById('nav');
+    document.getElementById('burger').addEventListener('click', () => nav.classList.toggle('open'));
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+
+    // Отправка формы без перезагрузки страницы
+    const form = document.getElementById('booking-form');
+    const msg = document.getElementById('form-msg');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      msg.textContent = 'Отправляем...';
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          msg.textContent = 'Спасибо! Мы скоро свяжемся с вами.';
+          form.reset();
+        } else {
+          msg.textContent = 'Не удалось отправить. Позвоните нам по телефону.';
+        }
+      } catch (err) {
+        msg.textContent = 'Ошибка сети. Позвоните нам по телефону.';
+      }
+    });
+  </script>
+</body>
+</html>
