@@ -121,7 +121,8 @@
     .contacts { display: grid; gap: 24px; }
     .contacts li { margin-bottom: 10px; }
     .contacts strong { display: block; }
-    .map { height: 300px; }
+    .map { height: 300px; overflow: hidden; }
+    .map iframe { width: 100%; height: 100%; border: 0; border-radius: var(--radius); }
     .socials { display: flex; gap: 14px; margin-top: 8px; }
     .socials a { color: var(--accent-dark); text-decoration: underline; }
 
@@ -300,14 +301,16 @@
           Вставьте в action адрес развёрнутого веб-приложения (заканчивается на /exec).
           НЕ вставляйте токены и ключи прямо в код страницы: они будут видны всем.
         -->
-        <form id="booking-form" action="https://script.google.com/macros/s/AKfycbxZfkvIK76NSVWale-2TStbLp7--zX-5u8shIySKQHjUAvxmVsz4A7HvvjN9kabBX6EkQ/exec" method="POST">
+        <form id="booking-form" action="https://script.google.com/macros/s/ВАШ_ID/exec" method="POST">
           <div>
             <label for="name">Имя</label>
             <input type="text" id="name" name="name" required autocomplete="name">
           </div>
           <div>
             <label for="phone">Телефон</label>
-            <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required autocomplete="tel">
+            <input type="tel" id="phone" name="phone" placeholder="+7 (___) ___-__-__" required autocomplete="tel"
+                   inputmode="tel" maxlength="18" pattern="\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}"
+                   title="Номер в формате +7 (999) 123-45-67">
           </div>
           <div>
             <label for="service">Услуга</label>
@@ -352,8 +355,9 @@
               </div>
             </li>
           </ul>
-          <!-- Вместо заглушки вставьте код карты из конструктора Яндекс.Карт (<iframe> или скрипт) -->
-          <div class="ph map">Здесь будет карта Яндекс.Карт</div>
+          <div class="ph map">
+            <iframe src="<iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A22bb5155eb52d335e7a51d06d9aa0ccc957682c9f6908dc1caca6e552d599d44&amp;source=constructor" width="500" height="400" frameborder="0"></iframe>" loading="lazy"></iframe>
+          </div>
         </div>
       </div>
     </section>
@@ -375,6 +379,23 @@
     const nav = document.getElementById('nav');
     document.getElementById('burger').addEventListener('click', () => nav.classList.toggle('open'));
     nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => nav.classList.remove('open')));
+
+    // Маска телефона: +7 (999) 123-45-67 (в таблицу уходит в том же виде)
+    const phoneInput = document.getElementById('phone');
+    function formatPhone(value) {
+      let d = value.replace(/\D/g, '');
+      if (!d) return '';
+      if (d[0] === '8') d = '7' + d.slice(1);
+      if (d[0] !== '7') d = '7' + d;
+      const r = d.slice(1, 11); // 10 цифр после кода страны
+      let out = '+7';
+      if (r.length > 0) out += ' (' + r.slice(0, 3);
+      if (r.length > 3) out += ') ' + r.slice(3, 6);
+      if (r.length > 6) out += '-' + r.slice(6, 8);
+      if (r.length > 8) out += '-' + r.slice(8, 10);
+      return out;
+    }
+    phoneInput.addEventListener('input', () => { phoneInput.value = formatPhone(phoneInput.value); });
 
     // Отправка формы без перезагрузки страницы
     const form = document.getElementById('booking-form');
