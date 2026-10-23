@@ -400,23 +400,24 @@
     // Отправка формы без перезагрузки страницы
     const form = document.getElementById('booking-form');
     const msg = document.getElementById('form-msg');
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      msg.textContent = 'Отправляем...';
-      try {
-        // no-cors: Google Apps Script не отдаёт CORS-заголовки, ответ прочитать нельзя,
-        // но данные доходят. Ошибка бросается только при сбое сети.
-        await fetch(form.action, {
-          method: 'POST',
-          mode: 'no-cors',
-          body: new URLSearchParams(new FormData(form))
-        });
-        msg.textContent = 'Спасибо! Мы скоро свяжемся с вами.';
-        form.reset();
-      } catch (err) {
-        msg.textContent = 'Ошибка сети. Позвоните нам по телефону.';
-      }
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const btn = form.querySelector('button[type=submit]');
+  btn.disabled = true;
+
+  const body = new URLSearchParams(new FormData(form));
+
+  // Отправляем в фоне; keepalive не даёт браузеру оборвать запрос,
+  // если человек закроет вкладку
+  fetch(form.action, { method: 'POST', mode: 'no-cors', body, keepalive: true })
+    .catch(() => {
+      msg.textContent = 'Не удалось отправить. Позвоните нам по телефону.';
     });
+
+  msg.textContent = 'Спасибо! Мы скоро свяжемся с вами.';
+  form.reset();
+  setTimeout(() => { btn.disabled = false; }, 3000);
+});
   </script>
 </body>
 </html>
